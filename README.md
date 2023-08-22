@@ -1,10 +1,15 @@
 # ESP32-CAM_Audio
 
 This sketch allows you to use the ESP32-CAM as an MJPEG & WAV streaming webserver.
-Audio (your voice) is captured by an INMP441 microphone and stream to the WAV format.
+Audio (your voice) is captured by an microphone and stream to the WAV format.
 
-The code was tested  with AI-Thinker ESP32-CAM and OV2640 camera module.
-It should also work with other boards, OV5640 camera module and other MEMS microphones with some adaptation but I didn't test it yet.
+The code was tested  with :
+
+| Camera model         | Camera module    | Microphone                |
+| -------------------- |:----------------:| ------------------------- |
+| AI-Thinker ESP32-CAM | OV2640<br>OV5640 | INMP441 MEMS microphone   |
+| XIAO_ESP32S3         | OV2640<br>OV5640 | Integrated PDM microphone |
+
 
 The sketch uses the basic Arduino CameraWebServer example to which I added an audio server.
 
@@ -30,12 +35,32 @@ Configure your WiFi network credentials.
 const char* ssid = "ssid";
 const char* password = "password";
 ```
-Edit the audio_server.h file to configure microphone I2S pins (select the pins according to your connections).
+Edit the audio_server.h file.
+
+CAMERA_MODEL_AI_THINKER 
 ```
+//select the pins according to your connections
 #define I2S_WS            2 
 #define I2S_SCK           14 
 #define I2S_SD            15 
+
+#define I2S_PORT          I2S_NUM_1
+#define SAMPLE_BITS       32
+.mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX),
+.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT,
 ```
+CAMERA_MODEL_XIAO_ESP32S3
+```
+#define I2S_WS            42 
+#define I2S_SCK           -1
+#define I2S_SD            41
+
+#define I2S_PORT          I2S_NUM_0
+#define SAMPLE_BITS       16
+.mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_PDM),
+.channel_format = I2S_CHANNEL_FMT_ONLY_LEFT,
+```
+
 ## Usage
 
 Here is the method I use to access the streams from a web page.

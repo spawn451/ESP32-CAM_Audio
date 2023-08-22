@@ -6,14 +6,22 @@
 // I2S pins 
 #define I2S_WS            2 
 #define I2S_SCK           14 
-#define I2S_SD            15 
+#define I2S_SD            15
+//CAMERA_MODEL_XIAO_ESP32S3
+//#define I2S_WS            42 
+//#define I2S_SCK           -1
+//#define I2S_SD            41 
 
 // I2S peripheral to use (0 or 1)
 #define I2S_PORT          I2S_NUM_1
+//CAMERA_MODEL_XIAO_ESP32S3
+//#define I2S_PORT          I2S_NUM_0
 
 //---- Sampling ------------
 #define SAMPLE_RATE       22050 // Sample rate of the audio 
 #define SAMPLE_BITS       32   // Bits per sample of the audio
+//CAMERA_MODEL_XIAO_ESP32S3
+//#define SAMPLE_BITS       16
 #define DMA_BUF_COUNT     2
 #define DMA_BUF_LEN       1024
 
@@ -66,9 +74,13 @@ void mic_i2s_init() {
 
   i2s_config_t i2sConfig = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX), // Use RX mode for audio input
+    //CAMERA_MODEL_XIAO_ESP32S3
+    //.mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_PDM),
     .sample_rate = SAMPLE_RATE ,
     .bits_per_sample = i2s_bits_per_sample_t(SAMPLE_BITS),
     .channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT, // Mono audio
+    //CAMERA_MODEL_XIAO_ESP32S3
+    //.channel_format = I2S_CHANNEL_FMT_ONLY_LEFT,
     .communication_format = I2S_COMM_FORMAT_STAND_I2S,
     .intr_alloc_flags = 0,
     .dma_buf_count = DMA_BUF_COUNT,
