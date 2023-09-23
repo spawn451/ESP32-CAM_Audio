@@ -1,7 +1,7 @@
 # ESP32-CAM_Audio
 
 This sketch allows you to use the ESP32-CAM as an MJPEG & WAV streaming webserver.
-Audio (your voice) is captured by an microphone and stream to the WAV format.
+Audio (your voice) is captured by a microphone and stream to the WAV format.
 
 The code was tested  with :
 
