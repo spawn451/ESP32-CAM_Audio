@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+	<meta charset="UTF-8">
+      <title>ESP32-CAM + Livestream Audio</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <style>
+         body {
+         background-color: #FFF;
+         }
+         .container1 {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: center;
+         height: 100%;
+         }
+         .container2 {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: center;
+         height: 100%;
+         }		 
+         .block {
+         width: 200px;
+         height: 200px;
+         background-color: gray;
+         margin: 10px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         }
+         #video{
+         border: 0;
+         }		
+         #audio{
+         border: 0;
+         }
+		 #motor{
+         border: 0;
+         }
+         #tbl{
+         background-color: #000;
+         }			
+      </style>
+      <script>	
+         function myFunction() {
+           var x = document.getElementById("audio");
+		   const btn = document.getElementById("myButton");
+           if (x.style.display === "none") {
+             x.style.display = "block";					
+           } else {
+             x.style.display = "none";
+           }
+         }
+      </script>
+   </head>
+   <body>
+      <h1>ESP32-CAM + Livestream Audio</h1>
+      <div class="container1" style="overflow-x:auto;">
+         <table id="tbl" style="overflow-x:auto;">
+            <tr>
+               <td><iframe id="video" src="https://go2rtc.local/stream.html?src=ESP32-CAM_video&mode=mjpeg" allow="camera" width="640" height="480"></iframe></td>
+            </tr>
+            <tr>
+               <td><iframe id="audio" src="https://go2rtc.local/stream.html?src=ESP32-CAM_audio" width="640" height="60" style="display:none"></iframe></td>
+            </tr>
+            <tr>
+               <td><button id="myButton"onclick="myFunction()">Sound</button></td>			   
+			</tr>	
+         </table> 
+      </div>
+   </body>
+</html>
